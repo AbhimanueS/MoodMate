@@ -65,7 +65,7 @@ const Register = () => {
 
     if (response.ok) {
       alert("Registration successful! Now login with your credentials.");
-      navigate("/Login");
+      navigate("/");
     } else {
       alert(data.error || "Registration failed");
     }

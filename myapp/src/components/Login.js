@@ -3,10 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-;
-
+import Register from './Register';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -50,6 +51,36 @@ const Login = () => {
       cursor: 'pointer',
     },
   };
+  const handleLogin = async (e) => {
+  e.preventDefault();
+
+  const email = e.target.email.value.trim();
+  const password = e.target.password.value.trim();
+
+  try {
+    const response = await fetch("http://localhost:5000/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert("Login successful!");
+      // You can save a token if your backend sends one:
+      // localStorage.setItem("token", data.token);
+      navigate("/dashboard"); // or wherever you want to go next
+    } else {
+      alert(data.error || "Invalid credentials");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Server error. Please try again later.");
+  }
+};
 
   return (
     <>
@@ -74,7 +105,7 @@ const Login = () => {
             style={{ backgroundColor: '#383838' }}
           >
             
-            <form method="post" action="/api/login" style={styles.form}>
+            <form onSubmit={handleLogin} style={styles.form}>
             <h2>MOODMATE</h2>
             <h6>Please login to your account</h6>
               <input
@@ -104,11 +135,11 @@ const Login = () => {
                 Show Password
               </label>
 
-              <Button variant="outline-light">
+              <Button variant="outline-light" type='submit'>
                 Login
               </Button>
 
-              <Button variant="outline-light">
+              <Button variant="outline-light" onClick={() => navigate('/register')}>
                 Register
               </Button>
               
