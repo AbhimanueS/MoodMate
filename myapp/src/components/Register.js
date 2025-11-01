@@ -80,6 +80,7 @@ const Register = () => {
     form: {
       display: "flex",
       flexDirection: "column",
+      
       gap: "1rem",
       width: "80%",
       maxWidth: "300px",
@@ -99,7 +100,7 @@ const Register = () => {
   };
 
   return (
-    <>
+    <div style={{ backgroundColor: "#7a7f8bff", minHeight: "100vh" }}>
       <Card
         style={{
           width: "55rem",
@@ -205,7 +206,7 @@ const Register = () => {
           </Col>
         </Row>
       </Card>
-    </>
+    </div>
   );
 };
 

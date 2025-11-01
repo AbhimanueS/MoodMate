@@ -71,8 +71,8 @@ const Login = () => {
     if (response.ok) {
       alert("Login successful!");
       // You can save a token if your backend sends one:
-      // localStorage.setItem("token", data.token);
-      navigate("/dashboard"); // or wherever you want to go next
+      localStorage.setItem("user", JSON.stringify(data.user));
+      navigate("/dashboard"); 
     } else {
       alert(data.error || "Invalid credentials");
     }
@@ -83,7 +83,7 @@ const Login = () => {
 };
 
   return (
-    <>
+    <div style={{ backgroundColor: "#7a7f8bff", minHeight: "100vh" }}>
       <Card
         style={{
           width: '55rem',
@@ -163,7 +163,7 @@ const Login = () => {
           </Col>
         </Row>
       </Card>
-    </>
+    </div>
   );
 };
 
